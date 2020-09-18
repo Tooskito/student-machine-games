@@ -21,14 +21,14 @@ def catch_interrupt(fn):
 
 class EZMPNCApplication:
 
-    @debug_print
+    #@debug_print
     def parse_args(args: list) -> argparse.Namespace:
         parser = argparse.ArgumentParser()
         parser.add_argument('-n', dest='hostname', default='127.0.0.1')
         parser.add_argument('-p', dest='port', default=random.randint(40000, 50000), type=int)
         return parser.parse_args(args[1:])
 
-    @debug_print
+    #@debug_print
     def read_socket(sock: socket.socket) -> str:
         res = str()
         while True:
@@ -37,18 +37,18 @@ class EZMPNCApplication:
             res += raw_data.decode('utf-8').rstrip()
         return res
     
-    @debug_print
+    #@debug_print
     def __init__(self, args, game) -> None:
         self.server = socket.socket()
         self.args = EZMPNCApplication.parse_args(args)
         self.game = game
 
-    @debug_print
+    #@debug_print
     def __del__(self):
         if self.server:
             self.server.close()
     
-    @debug_print
+    #@debug_print
     @catch_interrupt
     def exec_(self) -> int:
         self.server.bind( (self.args.hostname, self.args.port) )
